@@ -30,7 +30,7 @@ Notes on "Refactoring: Improving the Design of Existing Code (2nd Edition)"
   - [异曲同工的类（Alternative Classes with Different Interfaces）](#异曲同工的类（Alternative-Classes-with-Different-Interfaces）)
   - [纯数据类（Data class）](#纯数据类（Data-class）)
   - [被拒绝的遗赠（Refused Bequest）](#被拒绝的遗赠（Refused-Bequest）)
-  - [注释Comment](#注释Comment)
+  - [注释（Comment）](#注释（Comment）)
 - [最有用的一组重构 (Most Useful Set Of Refactoring)](#最有用的一组重构（Most-Useful-Set-Of-Refactoring）)
   - [提炼函数（Extract Function）](#提炼函数（Extract-Function）)
   - [内联函数（Inline Function）](#内联函数（Inline-Function）)
@@ -43,7 +43,7 @@ Notes on "Refactoring: Improving the Design of Existing Code (2nd Edition)"
   - [函数组合成类（Combine Functions Into Class）](#函数组合成类（Combine-Functions-Into-Class）)
   - [函数组合成变换（Combine Functions Into Transform）](#函数组合成变换（Combine-Functions-Into-Transform）)
   - [拆分阶段（Split Phase）](#拆分阶段（Split-Phase）)
-- [封装（Encapsulate)](#封装（Encapsulate))
+- [封装（Encapsulate）](#封装（Encapsulate）)
   - [封装记录（Encapsulate Record）](#封装记录（Encapsulate-Record）)
   - [封装集合（Encapsulate Collection）](#封装集合（Encapsulate-Collection）)
   - [以对象取代基本类型（Replace Primitive with Object）](#以对象取代基本类型（Replace-Primitive-with-Object）)
@@ -83,11 +83,11 @@ Notes on "Refactoring: Improving the Design of Existing Code (2nd Edition)"
   - [保持完整对象（Preserve Whole Object）](#保持完整对象（Preserve-Whole-Object）)
   - [以查询取代参数（Replace Parameter with Query）](#以查询取代参数（Replace-Parameter-with-Query）)
   - [以参数取代查询（Replace Query with Parameter）](#以参数取代查询（Replace-Query-with-Parameter）)
-  - [移除设值方法（Remove Setting Method)](#移除设值方法（Remove-Setting-Method))
+  - [移除设值方法（Remove Setting Method）](#移除设值方法（Remove-Setting-Method）)
   - [以工厂函数取代构造方法（Replace Constructor with Factory Function）](#以工厂函数取代构造方法（Replace-Constructor-with-Factory-Function）)
   - [以命令取代函数（Replace Function with Command）](#以命令取代函数（Replace-Function-with-Command）)
   - [以函数取代命令（Replace Command with Function）](#以函数取代命令（Replace-Command-with-Function）)
-- [处理继承关系（Dealing With Inheritance)](#处理继承关系（Dealing-With-Inheritance))
+- [处理继承关系（Dealing With Inheritance）](#处理继承关系（Dealing-With-Inheritance）)
   - [方法上移（Pull Up Method）](#方法上移（Pull-Up-Method）)
   - [字段上移（Pull Up Field）](#字段上移（Pull-Up-Field）)
   - [构造方法本体上移（Pull Up Constructor Body）](#构造方法本体上移（Pull-Up-Constructor-Body）)
@@ -130,7 +130,7 @@ Changes to data can often lead to unexpected consequences and tricky bugs
 
 One module is changed in different ways for different reasons
 
-### 8. 散弹式修改（Shotgun Surgery）
+### 散弹式修改（Shotgun Surgery）
 
 When every time you make a change, you have to make a lot of little edits to a lot of different classes
 
@@ -194,11 +194,11 @@ Classes that have fields, getting and setting methods for the fields, and nothin
 
 Subclasses doesn't make uses of parents method
 
-### 注释Comment
+### 注释（Comment）
 
 The comments are there because the code is bad
 
-## 最有用的一组重构 (Most Useful Set Of Refactoring)
+## 最有用的一组重构（Most Useful Set Of Refactoring）
 
 ### 提炼函数（Extract Function）
 
@@ -463,7 +463,7 @@ function price(order, priceList) {
 - Make the different explicit, revealing the different in the code
 - Be able to deal with each module separately
 
-## 封装（Encapsulate)
+## 封装（Encapsulate）
 
 ### 封装记录（Encapsulate Record）
 
@@ -1408,7 +1408,7 @@ function targetTemperature(aPlan, currentTemperature) {
 - Reduce function's dependency
 - Create more pure functions
 
-### 移除设值方法（Remove Setting Method)
+### 移除设值方法（Remove Setting Method）
 
 Make a field immutable by removing setting method
 
@@ -1507,7 +1507,7 @@ function charge(customer, usage) {
 
 - Function call is simpler than command object
 
-## 处理继承关系（Dealing With Inheritance)
+## 处理继承关系（Dealing With Inheritance）
 
 ### 方法上移（Pull Up Method）
 
