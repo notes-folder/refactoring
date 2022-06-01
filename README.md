@@ -1,4 +1,4 @@
-# 笔记:《重构：改善既有代码的设计（第二版）》
+# 笔记:《重构：改善既有代码的设计 第二版》
 
 <!-- markdownlint-disable MD036-->
 
@@ -6,201 +6,201 @@ Notes on "Refactoring: Improving the Design of Existing Code (2nd Edition)"
 
 ## 目录
 
-- [代码的坏味道（Bad Smells In Code）](#代码的坏味道（Bad-Smells-In-Code）)
-  - [神秘命名（Mysterious Name）](#神秘命名（Mysterious-Name）)
-  - [重复代码（Duplicated Code）](#重复代码（Duplicated-Code）)
-  - [过长函数（Long Function）](#过长函数（Long-Function）)
-  - [过长参数列表（Long Parameter List）](#过长参数列表（Long-Parameter-List）)
-  - [全局数据（Global Data）](#全局数据（Global-Data）)
-  - [可变数据（Mutable Data）](#可变数据（Mutable-Data）)
-  - [发散式变化（Divergent Change）](#发散式变化（Divergent-Change）)
-  - [散弹式修改（Shotgun Surgery）](#散弹式修改（Shotgun-Surgery）)
-  - [依恋情结（Feature Envy）](#依恋情结（Feature-Envy）)
-  - [数据泥团（Data Clumps）](#数据泥团（Data-Clumps）)
-  - [基本类型偏执（Primitive Obsession）](#基本类型偏执（Primitive-Obsession）)
-  - [重复的switch（Repeated Switches）](#重复的switch（Repeated-Switches）)
-  - [循环语句（Loops）](#循环语句（Loops）)
-  - [冗赘的元素（Lazy Element）](#冗赘的元素（Lazy-Element）)
-  - [夸夸奇谈通用型（Speculative Generality）](#夸夸奇谈通用型（Speculative-Generality）)
-  - [临时字段（Temporary Field）](#临时字段（Temporary-Field）)
-  - [过长的消息链（Message Chains）](#过长的消息链（Message-Chains）)
-  - [中间人（Middle Man）](#中间人（Middle-Man）)
-  - [内幕交易（Insider Trading）](#内幕交易（Insider-Trading）)
-  - [过大的类（Large class）](#过大的类（Large-class）)
-  - [异曲同工的类（Alternative Classes with Different Interfaces）](#异曲同工的类（Alternative-Classes-with-Different-Interfaces）)
-  - [纯数据类（Data class）](#纯数据类（Data-class）)
-  - [被拒绝的遗赠（Refused Bequest）](#被拒绝的遗赠（Refused-Bequest）)
-  - [注释（Comment）](#注释（Comment）)
-- [最有用的一组重构 (Most Useful Set Of Refactoring)](#最有用的一组重构（Most-Useful-Set-Of-Refactoring）)
-  - [提炼函数（Extract Function）](#提炼函数（Extract-Function）)
-  - [内联函数（Inline Function）](#内联函数（Inline-Function）)
-  - [提炼变量（Extract Variable）](#提炼变量（Extract-Variable）)
-  - [内联变量（Inline Variable）](#内联变量（Inline-Variable）)
-  - [改变函数声明（Change Function Declaration）](#改变函数声明（Change-Function-Declaration）)
-  - [封装变量（Encapsulate Variable）](#封装变量（Encapsulate-Variable）)
-  - [变量改名（Rename Variable）](#变量改名（Rename-Variable）)
-  - [引入参数对象（Introduce Parameter Object）](#引入参数对象（Introduce-Parameter-Object）)
-  - [函数组合成类（Combine Functions Into Class）](#函数组合成类（Combine-Functions-Into-Class）)
-  - [函数组合成变换（Combine Functions Into Transform）](#函数组合成变换（Combine-Functions-Into-Transform）)
-  - [拆分阶段（Split Phase）](#拆分阶段（Split-Phase）)
-- [封装（Encapsulate）](#封装（Encapsulate）)
-  - [封装记录（Encapsulate Record）](#封装记录（Encapsulate-Record）)
-  - [封装集合（Encapsulate Collection）](#封装集合（Encapsulate-Collection）)
-  - [以对象取代基本类型（Replace Primitive with Object）](#以对象取代基本类型（Replace-Primitive-with-Object）)
-  - [以查询取代临时变量（Replace Temp with Query）](#以查询取代临时变量（Replace-Temp-with-Query）)
-  - [提炼类（Extract Class）](#提炼类（Extract-Class）)
-  - [内联类（Inline Class）](#内联类（Inline-Class）)
-  - [隐藏委托关系（Hide Delegate）](#隐藏委托关系（Hide-Delegate）)
-  - [移除中间人（Remove Middle Man）](#移除中间人（Remove-Middle-Man）)
-  - [替换算法（Substitute Algorithm）](#替换算法（Substitute-Algorithm）)
-- [搬移特性（Moving Features）](#搬迁特性（Moving-Features）)
-  - [搬移函数（Move Function）](#搬移函数（Move-Function）)
-  - [搬移字段（Move Field）](#搬移字段（Move-Field）)
-  - [搬移语句到函数（Move Statements into Function）](#搬移语句到函数（Move-Statements-into-Function）)
-  - [搬移语句到调用者（Move Statements To Callers）](#搬移语句到调用者（Move-Statements-To-Callers）)
-  - [以函数调用取代内联代码（Replace Inline Code with Function Call）](#以函数调用取代内联代码（Replace-Inline-Code-with-Function-Call）)
-  - [移动语句（Slide Statements）](#移动语句（Slide-Statements）)
-  - [拆分循环（Split Loop）](#拆分循环（Split-Loop）)
-  - [以管道取代循环（Replace Loop with Pipeline）](#以管道取代循环（Replace-Loop-with-Pipeline）)
-  - [移除死代码（Remove Dead Code）](#移除死代码（Remove-Dead-Code）)
-- [重新组织数据（Organizing Data）](#重新组织数据（Organizing-Data）)
-  - [拆分变量（Split Variable）](#拆分变量（Split-Variable）)
-  - [字段改名（Rename Field）](#字段改名（Rename-Field）)
-  - [以查询取代派生变量（Replace Derived Variable With Query）](#以查询取代派生变量（Replace-Derived-Variable-With-Query）)
-  - [将引用对象改为值对象（Change Reference To Value）](#将引用对象改为值对象（Change-Reference-To-Value）)
-  - [将值对象改为引用对象（Change Value To Reference）](#将值对象改为引用对象（Change-Value-To-Reference）)
-- [简化条件逻辑（Simplifying Conditional Logic）](#简化条件逻辑（Simplifying-Conditional-Logic)
-  - [分解条件表达式（Decompose Conditional）](#分解条件表达式（Decompose-Conditional）)
-  - [合并条件表达式（Consolidate Conditional Expression）](#合并条件表达式（Consolidate-Conditional-Expression）)
-  - [以卫语句取代件套表达式（Replace Nested Conditional with Guard Clauses）](#3-replace-nested-conditional-with-guard-clauses)
-  - [以多态取代条件表达式（Replace Conditional with Polymorphism）](#以多态取代条件表达式（Replace-Conditional-with-Polymorphism）)
-  - [引入特例（Introduce Special Case）](#引入特例（Introduce-Special-Case）)
-  - [引入断言（Introduce Assertion）](#引入断言（Introduce-Assertion）)
-- [重构API（Refactoring APIS）](#重构API（Refactoring-APIS）)
-  - [将查询函数和修改函数分离（Separate Query from Modifier）](#将查询函数和修改函数分离（Separate-Query-from-Modifier）)
-  - [函数参数化（Parameterize Function）](#函数参数化（Parameterize-Function）)
-  - [移除标记参数（Remove Flag Argument）](#移除标记参数（Remove-Flag-Argument）)
-  - [保持完整对象（Preserve Whole Object）](#保持完整对象（Preserve-Whole-Object）)
-  - [以查询取代参数（Replace Parameter with Query）](#以查询取代参数（Replace-Parameter-with-Query）)
-  - [以参数取代查询（Replace Query with Parameter）](#以参数取代查询（Replace-Query-with-Parameter）)
-  - [移除设值方法（Remove Setting Method）](#移除设值方法（Remove-Setting-Method）)
-  - [以工厂函数取代构造方法（Replace Constructor with Factory Function）](#以工厂函数取代构造方法（Replace-Constructor-with-Factory-Function）)
-  - [以命令取代函数（Replace Function with Command）](#以命令取代函数（Replace-Function-with-Command）)
-  - [以函数取代命令（Replace Command with Function）](#以函数取代命令（Replace-Command-with-Function）)
-- [处理继承关系（Dealing With Inheritance）](#处理继承关系（Dealing-With-Inheritance）)
-  - [方法上移（Pull Up Method）](#方法上移（Pull-Up-Method）)
-  - [字段上移（Pull Up Field）](#字段上移（Pull-Up-Field）)
-  - [构造方法本体上移（Pull Up Constructor Body）](#构造方法本体上移（Pull-Up-Constructor-Body）)
-  - [方法下移（Push Down Method）](#方法下移（Push-Down-Method）)
-  - [字段下移（Push Down Field）](#字段下移（Push-Down-Field）)
-  - [以子类取代类型码（Replace Type Code with Subclasses）](#以子类取代类型码（Replace-Type-Code-with-Subclasses）)
-  - [移除子类（Remove Subclass）](#移除子类（Remove-Subclass）)
-  - [提炼超类（Extract Superclass）](#提炼超类（Extract-Superclass）)
-  - [折叠继承关系（Collapse Hierarchy）](#折叠继承关系（Collapse-Hierarchy）)
-  - [以委托取代子类（Replace Subclass with Delegate）](#以委托取代子类（Replace-Subclass-with-Delegate）)
-  - [以委托取代超类（Replace Superclass with Delegate）](#以委托取代超类（Replace-Superclass-with-Delegate）)
+- [代码的坏味道 Bad Smells In Code](#代码的坏味道-bad-smells-in-code)
+  - [神秘命名 Mysterious Name](#神秘命名-mysterious-name)
+  - [重复代码 Duplicated Code](#重复代码-duplicated-code)
+  - [过长函数 Long Function](#过长函数-long-function)
+  - [过长参数列表 Long Parameter List](#过长参数列表-long-parameter-list)
+  - [全局数据 Global Data](#全局数据-global-data)
+  - [可变数据 Mutable Data](#可变数据-mutable-data)
+  - [发散式变化 Divergent Change](#发散式变化-divergent-change)
+  - [散弹式修改 Shotgun Surgery](#散弹式修改-shotgun-surgery)
+  - [依恋情结 Feature Envy](#依恋情结-feature-envy)
+  - [数据泥团 Data Clumps](#数据泥团-data-clumps)
+  - [基本类型偏执 Primitive Obsession](#基本类型偏执-primitive-obsession)
+  - [重复的switch Repeated Switches](#重复的switch-repeated-switches)
+  - [循环语句 Loops](#循环语句-loops)
+  - [冗赘的元素 Lazy Element](#冗赘的元素-lazy-element)
+  - [夸夸奇谈通用型 Speculative Generality](#夸夸奇谈通用型-speculative-generality)
+  - [临时字段 Temporary Field](#临时字段-temporary-field)
+  - [过长的消息链 Message Chains](#过长的消息链-message-chains)
+  - [中间人 Middle Man](#中间人-middle-man)
+  - [内幕交易 Insider Trading](#内幕交易-insider-trading)
+  - [过大的类 Large class](#过大的类-large-class)
+  - [异曲同工的类 Alternative Classes with Different Interfaces](#异曲同工的类-alternative-classes-with-different-interfaces)
+  - [纯数据类 Data class](#纯数据类-data-class)
+  - [被拒绝的遗赠 Refused Bequest](#被拒绝的遗赠-refused-bequest)
+  - [注释 Comment](#注释-comment)
+- [最有用的一组重构 (Most Useful Set Of Refactoring)](#最有用的一组重构-most-useful-set-of-refactoring)
+  - [提炼函数 Extract Function](#提炼函数-extract-function)
+  - [内联函数 Inline Function](#内联函数-inline-function)
+  - [提炼变量 Extract Variable](#提炼变量-extract-variable)
+  - [内联变量 Inline Variable](#内联变量-inline-variable)
+  - [改变函数声明 Change Function Declaration](#改变函数声明-change-function-declaration)
+  - [封装变量 Encapsulate Variable](#封装变量-encapsulate-variable)
+  - [变量改名 Rename Variable](#变量改名-rename-variable)
+  - [引入参数对象 Introduce Parameter Object](#引入参数对象-introduce-parameter-object)
+  - [函数组合成类 Combine Functions Into Class](#函数组合成类-combine-functions-into-class)
+  - [函数组合成变换 Combine Functions Into Transform](#函数组合成变换-combine-functions-into-transform)
+  - [拆分阶段 Split Phase](#拆分阶段-split-phase)
+- [封装 Encapsulate](#封装-encapsulate)
+  - [封装记录 Encapsulate Record](#封装记录-encapsulate-record)
+  - [封装集合 Encapsulate Collection](#封装集合-encapsulate-collection)
+  - [以对象取代基本类型 Replace Primitive with Object](#以对象取代基本类型-replace-primitive-with-object)
+  - [以查询取代临时变量 Replace Temp with Query](#以查询取代临时变量-replace-temp-with-query)
+  - [提炼类 Extract Class](#提炼类-extract-class)
+  - [内联类 Inline Class](#内联类-inline-class)
+  - [隐藏委托关系 Hide Delegate](#隐藏委托关系-hide-delegate)
+  - [移除中间人 Remove Middle Man](#移除中间人-remove-middle-man)
+  - [替换算法 Substitute Algorithm](#替换算法-substitute-algorithm)
+- [搬移特性 Moving Features](#搬迁特性-moving-features)
+  - [搬移函数 Move Function](#搬移函数-move-function)
+  - [搬移字段 Move Field](#搬移字段-move-field)
+  - [搬移语句到函数 Move Statements into Function](#搬移语句到函数-move-statements-into-function)
+  - [搬移语句到调用者 Move Statements To Callers](#搬移语句到调用者-move-statements-to-callers)
+  - [以函数调用取代内联代码 Replace Inline Code with Function Call](#以函数调用取代内联代码-replace-inline-code-with-function-call)
+  - [移动语句 Slide Statements](#移动语句-slide-statements)
+  - [拆分循环 Split Loop](#拆分循环-split-loop)
+  - [以管道取代循环 Replace Loop with Pipeline](#以管道取代循环-replace-loop-with-pipeline)
+  - [移除死代码 Remove Dead Code](#移除死代码-remove-dead-code)
+- [重新组织数据 Organizing Data](#重新组织数据-organizing-data)
+  - [拆分变量 Split Variable](#拆分变量-split-variable)
+  - [字段改名 Rename Field](#字段改名-rename-field)
+  - [以查询取代派生变量 Replace Derived Variable With Query](#以查询取代派生变量-replace-derived-variable-with-query)
+  - [将引用对象改为值对象 Change Reference To Value](#将引用对象改为值对象-change-reference-to-value)
+  - [将值对象改为引用对象 Change Value To Reference](#将值对象改为引用对象-change-value-to-reference)
+- [简化条件逻辑 Simplifying Conditional Logic](#简化条件逻辑-simplifying-conditional-logic)
+  - [分解条件表达式 Decompose Conditional](#分解条件表达式-decompose-conditional)
+  - [合并条件表达式 Consolidate Conditional Expression](#合并条件表达式-consolidate-conditional-expression)
+  - [以卫语句取代件套表达式 Replace Nested Conditional with Guard Clauses](#以卫语句取代件套表达式-replace-nested-conditional-with-guard-clauses)
+  - [以多态取代条件表达式 Replace Conditional with Polymorphism](#以多态取代条件表达式-replace-conditional-with-polymorphism)
+  - [引入特例 Introduce Special Case](#引入特例-introduce-special-case)
+  - [引入断言 Introduce Assertion](#引入断言-introduce-assertion)
+- [重构API Refactoring APIS](#重构API-refactoring-apis)
+  - [将查询函数和修改函数分离 Separate Query from Modifier](#将查询函数和修改函数分离-separate-query-from-modifier)
+  - [函数参数化 Parameterize Function](#函数参数化-parameterize-function)
+  - [移除标记参数 Remove Flag Argument](#移除标记参数-remove-flag-argument)
+  - [保持完整对象 Preserve Whole Object](#保持完整对象-preserve-whole-object)
+  - [以查询取代参数 Replace Parameter with Query](#以查询取代参数-replace-parameter-with-query)
+  - [以参数取代查询 Replace Query with Parameter](#以参数取代查询-replace-query-with-parameter)
+  - [移除设值方法 Remove Setting Method](#移除设值方法-remove-setting-method)
+  - [以工厂函数取代构造方法 Replace Constructor with Factory Function](#以工厂函数取代构造方法-replace-constructor-with-factory-function)
+  - [以命令取代函数 Replace Function with Command](#以命令取代函数-replace-function-with-command)
+  - [以函数取代命令 Replace Command with Function](#以函数取代命令-replace-command-with-function)
+- [处理继承关系 Dealing With Inheritance](#处理继承关系-dealing-with-inheritance)
+  - [方法上移 Pull Up Method](#方法上移-pull-up-method)
+  - [字段上移 Pull Up Field](#字段上移-pull-up-field)
+  - [构造方法本体上移 Pull Up Constructor Body](#构造方法本体上移-pull-up-constructor-body)
+  - [方法下移 Push Down Method](#方法下移-push-down-method)
+  - [字段下移 Push Down Field](#字段下移-push-down-field)
+  - [以子类取代类型码 Replace Type Code with Subclasses](#以子类取代类型码-replace-type-code-with-subclasses)
+  - [移除子类 Remove Subclass](#移除子类-remove-subclass)
+  - [提炼超类 Extract Superclass](#提炼超类-extract-superclass)
+  - [折叠继承关系 Collapse Hierarchy](#折叠继承关系-collapse-hierarchy)
+  - [以委托取代子类 Replace Subclass with Delegate](#以委托取代子类-replace-subclass-with-delegate)
+  - [以委托取代超类 Replace Superclass with Delegate](#以委托取代超类-replace-superclass-with-delegate)
 
-## 代码的坏味道（Bad Smells In Code）
+## 代码的坏味道 Bad Smells In Code
 
-### 神秘命名（Mysterious Name）
+### 神秘命名 Mysterious Name
 
 Name should clearly communicate what they do and how to use them
 
-### 重复代码（Duplicated Code）
+### 重复代码 Duplicated Code
 
 Same code structure in more than one place
 
-### 过长函数（Long Function）
+### 过长函数 Long Function
 
 the longer a function is, the more difficult it is to understand
 
-### 过长参数列表（Long Parameter List）
+### 过长参数列表 Long Parameter List
 
 Difficult to understand and easily introduce bug
 
-### 全局数据（Global Data）
+### 全局数据 Global Data
 
 Global variable is difficult to track and debug
 
-### 可变数据（Mutable Data）
+### 可变数据 Mutable Data
 
 Changes to data can often lead to unexpected consequences and tricky bugs
 
-### 发散式变化（Divergent Change）
+### 发散式变化 Divergent Change
 
 One module is changed in different ways for different reasons
 
-### 散弹式修改（Shotgun Surgery）
+### 散弹式修改 Shotgun Surgery
 
 When every time you make a change, you have to make a lot of little edits to a lot of different classes
 
-### 依恋情结（Feature Envy）
+### 依恋情结 Feature Envy
 
 When a function in one module spends more time communicating with functions or data inside another module than it does within its own module
 
-### 数据泥团（Data Clumps）
+### 数据泥团 Data Clumps
 
 Same three or four data items together in lots of places
 
-### 基本类型偏执（Primitive Obsession）
+### 基本类型偏执 Primitive Obsession
 
 Use primitive types instead of custom fundamental types
 
-### 重复的switch（Repeated Switches）
+### 重复的switch Repeated Switches
 
 Same conditional switching logic pops up in different places
 
-### 循环语句（Loops）
+### 循环语句 Loops
 
 Using loops instead of first-class functions such as filter or map
 
-### 冗赘的元素（Lazy Element）
+### 冗赘的元素 Lazy Element
 
 A class, struct or function that isn't doing enough to pay for itself should be eliminated.
 
-### 夸夸奇谈通用型（Speculative Generality）
+### 夸夸奇谈通用型 Speculative Generality
 
 All sorts of hooks and special cases to handle things that aren’t required
 
-### 临时字段（Temporary Field）
+### 临时字段 Temporary Field
 
 An instance variable that is set only in certain circumstances.
 
-### 过长的消息链（Message Chains）
+### 过长的消息链 Message Chains
 
 When a client asks one object for another object, which the client then asks for yet another object...
 
-### 中间人（Middle Man）
+### 中间人 Middle Man
 
 When an object delegates much of its functionality.
 
-### 内幕交易（Insider Trading）
+### 内幕交易 Insider Trading
 
 Modules that whisper to each other by the coffee machine need to be separated by using Move Function and Move Field to reduce the need to chat.
 
-### 过大的类（Large class）
+### 过大的类 Large class
 
 A class is trying to do too much, it often shows up as too many fields
 
-### 异曲同工的类（Alternative Classes with Different Interfaces）
+### 异曲同工的类 Alternative Classes with Different Interfaces
 
 Classes with methods that look to similar.
 
-### 纯数据类（Data class）
+### 纯数据类 Data class
 
 Classes that have fields, getting and setting methods for the fields, and nothing else
 
-### 被拒绝的遗赠（Refused Bequest）
+### 被拒绝的遗赠 Refused Bequest
 
 Subclasses doesn't make uses of parents method
 
-### 注释（Comment）
+### 注释 Comment
 
 The comments are there because the code is bad
 
-## 最有用的一组重构（Most Useful Set Of Refactoring）
+## 最有用的一组重构 Most Useful Set Of Refactoring
 
-### 提炼函数（Extract Function）
+### 提炼函数 Extract Function
 
 Extract fragment of code into its own function named after its purpose.
 
@@ -236,7 +236,7 @@ function printOwing(invoice) {
 - Short function is easier to read
 - Reduce comment
 
-### 内联函数（Inline Function）
+### 内联函数 Inline Function
 
 Get rid of the function when the body of the code is just as clear as the name
 
@@ -262,7 +262,7 @@ function rating(aDriver) {
 - When Indirection is needless (simple delegation) becomes irritating.
 - If group of methods are badly factored and grouping them makes it clearer
 
-### 提炼变量（Extract Variable）
+### 提炼变量 Extract Variable
 
 Add a name to an expression
 
@@ -287,7 +287,7 @@ return basePrice - quantityDiscount + shipping;
 - Break down and name a part of a more complex piece of logic
 - Easier for debugging
 
-### 内联变量（Inline Variable）
+### 内联变量 Inline Variable
 
 Remove variable which doesn't really communicate more than the expression itself.
 
@@ -302,7 +302,7 @@ to
 return anOrder.basePrice > 1000;
 ```
 
-### 改变函数声明（Change Function Declaration）
+### 改变函数声明 Change Function Declaration
 
 Rename a function, change list of parameters
 
@@ -321,7 +321,7 @@ function circumference(radius) {...}
 - Easier to understand
 - Easier to reuse, sometime better encapsulation
 
-### 封装变量（Encapsulate Variable）
+### 封装变量 Encapsulate Variable
 
 Encapsulate a reference to some data structure
 
@@ -342,7 +342,7 @@ export function setDefaultOwner(arg) { defaultOwnerData = arg; }
 
 - Provide a clear point to monitor changes and use of the data, like validation.
 
-### 变量改名（Rename Variable）
+### 变量改名 Rename Variable
 
 Make shared variable's name can self-explain
 
@@ -356,7 +356,7 @@ to
 let area = height * width;
 ```
 
-### 引入参数对象（Introduce Parameter Object）
+### 引入参数对象 Introduce Parameter Object
 
 Replace groups of data items that regularly travel together with a single data structure
 
@@ -381,7 +381,7 @@ function amountOverdue(aDateRange) {}
 - Make code more consistent
 - Enable deeper changes to the code
 
-### 函数组合成类（Combine Functions Into Class）
+### 函数组合成类 Combine Functions Into Class
 
 Form a class base on group of functions that operate closely on a common data
 
@@ -406,7 +406,7 @@ class Reading() {
 - Simplify function call by removing many arguments
 - Easier to pass object to other parts of the system
 
-### 函数组合成变换（Combine Functions Into Transform）
+### 函数组合成变换 Combine Functions Into Transform
 
 Takes the source data as input and calculates all the derivations, putting each derived value as a field in the output data
 
@@ -430,7 +430,7 @@ function enrichReading(argReading) {
 
 - Avoid duplication of logic
 
-### 拆分阶段（Split Phase）
+### 拆分阶段 Split Phase
 
 Split code which do different things into separate modules
 
@@ -463,9 +463,9 @@ function price(order, priceList) {
 - Make the different explicit, revealing the different in the code
 - Be able to deal with each module separately
 
-## 封装（Encapsulate）
+## 封装 Encapsulate
 
-### 封装记录（Encapsulate Record）
+### 封装记录 Encapsulate Record
 
 Create record (class) from object
 
@@ -494,7 +494,7 @@ class Organization {
 - Hide what's stored and provide methods to get value
 - Easier to refactoring, for example: rename
 
-### 封装集合（Encapsulate Collection）
+### 封装集合 Encapsulate Collection
 
 A method returns a collection. Make it return a read-only view and provide add/remove methods
 
@@ -520,7 +520,7 @@ class Person {
 - Change to the collection should go through the owning class to prevent unexpected changes.
 - Prevent modification of the underlying collection for example: return a copy or read-only proxy instead of collection value
 
-### 以对象取代基本类型（Replace Primitive with Object）
+### 以对象取代基本类型 Replace Primitive with Object
 
 Create class for data
 
@@ -538,7 +538,7 @@ orders.filter(o => o.priority.higherThan(new Priority("normal")));
 
 - Encapsulate behaviour with data
 
-### 以查询取代临时变量（Replace Temp with Query）
+### 以查询取代临时变量 Replace Temp with Query
 
 Extract the assignment of the variable into a function
 
@@ -567,7 +567,7 @@ if (this.basePrice > 1000) {
 
 - Avoid duplicating the calculation logic in similar functions
 
-### 提炼类（Extract Class）
+### 提炼类 Extract Class
 
 Extract class base on a subset of data and a subset of methods
 
@@ -596,7 +596,7 @@ class TelephoneNumber {
 - Smaller class is easier to understand
 - Separate class's responsibility
 
-### 内联类（Inline Class）
+### 内联类 Inline Class
 
 Merge class if class isn't doing very much. Move its feature to another class then delete it.
 
@@ -625,7 +625,7 @@ class Person {
 - Class is no longer pulling its weight and shouldn’t be around any more
 - When want to refactor pair of classes. First Inline Class -> Extract Class to make new separation
 
-### 隐藏委托关系（Hide Delegate）
+### 隐藏委托关系 Hide Delegate
 
 A client is calling a delegate class of an object, create methods on the server to hide the delegate.
 
@@ -650,7 +650,7 @@ class Person {
 - Client doesn't need to know and response to delegation's change
 - Better encapsulation
 
-### 移除中间人（Remove Middle Man）
+### 移除中间人 Remove Middle Man
 
 Client call the delegate directly
 
@@ -674,7 +674,7 @@ manager = aPerson.department.manager;
 
 - When there are too many delegating methods
 
-### 替换算法（Substitute Algorithm）
+### 替换算法 Substitute Algorithm
 
 Replace complicated algorithm with simpler algorithm
 
@@ -709,9 +709,9 @@ function foundPerson(people) {
 - Change to algorithm which make changes easier
 - The clearer algorithm is, the better.
 
-## 搬迁特性（Moving Features）
+## 搬迁特性 Moving Features
 
-### 搬移函数（Move Function）
+### 搬移函数 Move Function
 
 Move a function when it references elements in other contexts more than the one it currently resides in
 
@@ -735,7 +735,7 @@ class AccountType {
 
 - Improve encapsulation, loose coupling
 
-### 搬移字段（Move Field）
+### 搬移字段 Move Field
 
 Move field from once class to another
 
@@ -760,7 +760,7 @@ class Customer {
 - Pieces of data that are always passed to functions together are usually best put in a single record
 - If a change in one record causes a field in another record to change too, that’s a sign of a field in the wrong place
 
-### 搬移语句到函数（Move Statements into Function）
+### 搬移语句到函数 Move Statements into Function
 
 When statement is a part of called functions (always go together), move it inside the function
 
@@ -794,7 +794,7 @@ function photoData(aPhoto) {
 
 - Remove duplicated code
 
-### 搬移语句到调用者（Move Statements To Callers）
+### 搬移语句到调用者 Move Statements To Callers
 
 ```typescript
 emitPhotoData(outStream, person.photo);
@@ -820,7 +820,7 @@ function emitPhotoData(outStream, photo) {
 
 - When common behavior used in several places needs to vary in some of its call
 
-### 以函数调用取代内联代码（Replace Inline Code with Function Call）
+### 以函数调用取代内联代码 Replace Inline Code with Function Call
 
 Replace the inline code with a call to the existing function
 
@@ -840,7 +840,7 @@ appliesToMass = states.includes("MA");
 - Remove duplication
 - Meaningful function name is easier to understand
 
-### 移动语句（Slide Statements）
+### 移动语句 Slide Statements
 
 Move related code to near each other
 
@@ -864,7 +864,7 @@ let charge;
 
 - It makes code easier to understand and easier to extract function
 
-### 拆分循环（Split Loop）
+### 拆分循环 Split Loop
 
 Split the loop which does two different things
 
@@ -898,7 +898,7 @@ averageAge = averageAge / people.length;
 - Easier to use
 - Easier to understand because each loop will do only 1 thing
 
-### 以管道取代循环（Replace Loop with Pipeline）
+### 以管道取代循环 Replace Loop with Pipeline
 
 Replace loop with collection pipeline, like `map` or `filter`
 
@@ -922,7 +922,7 @@ const names = input.filter(i => i.job === "programmer").
 
 - Easier to understand the flow of data
 
-### 移除死代码（Remove Dead Code）
+### 移除死代码 Remove Dead Code
 
 ```typescript
 if (false) {
@@ -940,9 +940,9 @@ to
 
 - Easier and quicker for developer to understand the codebase
 
-## 重新组织数据（Organizing Data）
+## 重新组织数据 Organizing Data
 
-### 拆分变量（Split Variable）
+### 拆分变量 Split Variable
 
 Any variable with more than one responsibility should be replaced with multiple variables, one for each responsibility
 
@@ -966,7 +966,7 @@ console.log(area);
 
 - Easier to understand
 
-### 字段改名（Rename Field）
+### 字段改名 Rename Field
 
 ```typescript
 class Organization {
@@ -982,7 +982,7 @@ class Organization {
 }
 ```
 
-### 以查询取代派生变量（Replace Derived Variable With Query）
+### 以查询取代派生变量 Replace Derived Variable With Query
 
 Remove any variables which cloud be easily calculate
 
@@ -1007,7 +1007,7 @@ set discount(aNumber) { this._discount = aNumber; }
 - Minimize scope of mutable data
 - A calculate makes it clearer what the meaning of data is
 
-### 将引用对象改为值对象（Change Reference To Value）
+### 将引用对象改为值对象 Change Reference To Value
 
 Treat data as value. When update, replace entire inner object with a new one
 
@@ -1033,7 +1033,7 @@ class Product {
 
 - Immutable data is easier to deal with
 
-### 将值对象改为引用对象（Change Value To Reference）
+### 将值对象改为引用对象 Change Value To Reference
 
 When need to share an object in different place, or have duplicated objects
 
@@ -1051,9 +1051,9 @@ let customer = customerRepository.get(customerData.id);
 
 - Update one reference is easier and more consistent than update multiple copies
 
-## 简化条件逻辑（Simplifying Conditional Logic
+## 简化条件逻辑 Simplifying Conditional Logic
 
-### 分解条件表达式（Decompose Conditional）
+### 分解条件表达式 Decompose Conditional
 
 Decomposing condition and replacing each chunk of code with a function call
 
@@ -1076,7 +1076,7 @@ const charge = isSummer() ? summerCharge() : regularCharge();
 
 - Clearer intention of what we're branching on
 
-### 合并条件表达式（Consolidate Conditional Expression）
+### 合并条件表达式 Consolidate Conditional Expression
 
 Consolidate different condition check which the result action is same to a single condition check with single result
 
@@ -1103,7 +1103,7 @@ function isNotEligibleForDisability() {
 - Often lead to Extract Function, which reveal instead of the code by function name
 - If conditions are not related, don't consolidate them
 
-### 3. Replace Nested Conditional with Guard Clauses
+### 以卫语句取代件套表达式 Replace Nested Conditional with Guard Clauses
 
 If condition is unusual condition, early return (Guard Clauses) and exist the function
 
@@ -1142,7 +1142,7 @@ function getPayAmount() {
 
 - It shows conditional branch are normal or unusual
 
-### 以多态取代条件表达式（Replace Conditional with Polymorphism）
+### 以多态取代条件表达式 Replace Conditional with Polymorphism
 
 Using object oriented class instead of complex condition
 
@@ -1183,7 +1183,7 @@ class NorwegianBlueParrot {
 
 - Make the separation more explicit
 
-### 引入特例（Introduce Special Case）
+### 引入特例 Introduce Special Case
 
 Bring special check case to a single place
 
@@ -1208,7 +1208,7 @@ class UnknownCustomer {
 - Remove duplicate code
 - Easy to add additional behavior to special object
 
-### 引入断言（Introduce Assertion）
+### 引入断言 Introduce Assertion
 
 Make the assumption explicit by writing an assertion
 
@@ -1232,9 +1232,9 @@ if (this.discountRate) {
 - Reader can understand the assumption easily
 - Help in debugging
 
-## 重构API（Refactoring APIS）
+## 重构API Refactoring APIS
 
-### 将查询函数和修改函数分离（Separate Query from Modifier）
+### 将查询函数和修改函数分离 Separate Query from Modifier
 
 Separate function that returns a value (query only) and function with side effects (example: modify data)
 
@@ -1277,7 +1277,7 @@ function alertForMiscreant (people) {
 
 - Immutable function (query only) is easy to test and reuse
 
-### 函数参数化（Parameterize Function）
+### 函数参数化 Parameterize Function
 
 Combine function with similar logic and different literal value
 
@@ -1302,7 +1302,7 @@ function raise(aPerson, factor) {
 
 - Increase usefulness of the function
 
-### 移除标记参数（Remove Flag Argument）
+### 移除标记参数 Remove Flag Argument
 
 Remove _literal_ flag argument by clear name functions
 
@@ -1331,7 +1331,7 @@ function setWidth(value) { this._width = value; }
 - Easy to read and understand code
 - Be careful if flag argument appears more than 1 time in the function, or is passed to further function
 
-### 保持完整对象（Preserve Whole Object）
+### 保持完整对象 Preserve Whole Object
 
 Passing whole object instead of multiple parameters
 
@@ -1353,7 +1353,7 @@ if (aPlan.withInRange(aRoom.daysTempRange)) {}
 - Don't need to add additional parameter if function needs more data in the future
 - Be careful if function and object are in different modules, which make tight coupling if we apply this refactor
 
-### 以查询取代参数（Replace Parameter with Query）
+### 以查询取代参数 Replace Parameter with Query
 
 ```typescript
 availableVacation(anEmployee, anEmployee.grade);
@@ -1380,7 +1380,7 @@ function availableVacation(anEmployee) {
 - Simpler work for the caller (because fewer parameters)
 - Be careful because it can increase function's dependency
 
-### 以参数取代查询（Replace Query with Parameter）
+### 以参数取代查询 Replace Query with Parameter
 
 Replace internal reference with a parameter
 
@@ -1408,7 +1408,7 @@ function targetTemperature(aPlan, currentTemperature) {
 - Reduce function's dependency
 - Create more pure functions
 
-### 移除设值方法（Remove Setting Method）
+### 移除设值方法 Remove Setting Method
 
 Make a field immutable by removing setting method
 
@@ -1427,7 +1427,7 @@ class Person {
 }
 ```
 
-### 以工厂函数取代构造方法（Replace Constructor with Factory Function）
+### 以工厂函数取代构造方法 Replace Constructor with Factory Function
 
 ```typescript
 leadEngineer = new Employee(document.leadEngineer, 'E');
@@ -1443,7 +1443,7 @@ leadEngineer = createEngineer(document.leadEngineer);
 
 - You want to do more than simple construction when you create an object.
 
-### 以命令取代函数（Replace Function with Command）
+### 以命令取代函数 Replace Function with Command
 
 Encapsulate function into its own object
 
@@ -1480,7 +1480,7 @@ class Scorer {
 - Can build customization such as inheritance and hooks
 - Easily break down a complex function to simpler steps
 
-### 以函数取代命令（Replace Command with Function）
+### 以函数取代命令 Replace Command with Function
 
 ```typescript
 class ChargeCalculator {
@@ -1507,9 +1507,9 @@ function charge(customer, usage) {
 
 - Function call is simpler than command object
 
-## 处理继承关系（Dealing With Inheritance）
+## 处理继承关系 Dealing With Inheritance
 
-### 方法上移（Pull Up Method）
+### 方法上移 Pull Up Method
 
 Move similar methods in subclass to superclass
 
@@ -1541,7 +1541,7 @@ class Engineer extends Employee {...}
 - Eliminate duplicate code in subclass
 - If two methods has similar workflow, consider using Template Method Pattern
 
-### 字段上移（Pull Up Field）
+### 字段上移 Pull Up Field
 
 Pull up similar field to superclass to remove duplication
 
@@ -1568,7 +1568,7 @@ class Salesman extends Employee {...}
 class Engineer extends Employee {...}
 ```
 
-### 构造方法本体上移（Pull Up Constructor Body）
+### 构造方法本体上移 Pull Up Constructor Body
 
 You have constructors on subclasses with mostly identical bodies.
 Create a superclass constructor; call this from the subclass methods
@@ -1604,7 +1604,7 @@ class Employee extends Party {
 }
 ```
 
-### 方法下移（Push Down Method）
+### 方法下移 Push Down Method
 
 If method is only relevant to one subclass, moving it from superclass to subclass
 
@@ -1627,7 +1627,7 @@ class Salesman extends Employee {
 }
 ```
 
-### 字段下移（Push Down Field）
+### 字段下移 Push Down Field
 
 If field is only used in one subclass, move it to those subclasses
 
@@ -1651,7 +1651,7 @@ class Salesman extends Employee {
 }
 ```
 
-### 以子类取代类型码（Replace Type Code with Subclasses）
+### 以子类取代类型码 Replace Type Code with Subclasses
 
 ```typescript
 function createEmployee(name, type) {
@@ -1676,7 +1676,7 @@ function createEmployee(name, type) {
 - Easily to apply Replace Conditional with Polymorphism later
 - Execute different code depending on the value of a type
 
-### 移除子类（Remove Subclass）
+### 移除子类 Remove Subclass
 
 You have subclasses do to little. Replace the subclass with a field in superclass.
 
@@ -1700,7 +1700,7 @@ class Person {
 }
 ```
 
-### 提炼超类（Extract Superclass）
+### 提炼超类 Extract Superclass
 
 If 2 classes have similar behaviors, create superclass and move these behaviors to superclass
 
@@ -1742,7 +1742,7 @@ class Employee extends Party {
 - Remove duplication
 - Prepare for Replace Superclass with Delegate refactor
 
-### 折叠继承关系（Collapse Hierarchy）
+### 折叠继承关系 Collapse Hierarchy
 
 Merge superclass and subclass when there are no longer different enough to keep them separate
 
@@ -1757,7 +1757,7 @@ to
 class Employee {...}
 ```
 
-### 以委托取代子类（Replace Subclass with Delegate）
+### 以委托取代子类 Replace Subclass with Delegate
 
 "Favor object composition over class inheritance" (where composition is effectively the same as delegation
 
@@ -1798,7 +1798,7 @@ class PriorityOrderDelegate {
 - If there are more than 1 reason to vary something, inheritance is not enough
 - Inheritance introduce very close relationship
 
-### 以委托取代超类（Replace Superclass with Delegate）
+### 以委托取代超类 Replace Superclass with Delegate
 
 If functions of the superclass don’t make sense on the subclass, replace with with delegate
 
