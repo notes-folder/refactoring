@@ -6,7 +6,7 @@ Notes on "Refactoring: Improving the Design of Existing Code (2nd Edition)"
 
 ## 目录
 
-- [代码的坏味道（Bad Smells In Code）](###代码的坏味道（Bad-Smells-In-Code）)
+- [代码的坏味道（Bad Smells In Code）](#代码的坏味道（Bad-Smells-In-Code）)
   - [神秘命名（Mysterious Name）](#神秘命名（Mysterious-Name）)
   - [重复代码（Duplicated Code）](#重复代码（Duplicated-Code）)
   - [过长函数（Long Function）](#过长函数（Long-Function）)
